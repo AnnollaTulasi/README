@@ -1,6 +1,6 @@
 # CONCEPTS
 
-Kubernetes Cluster setup,pods,containers,labels,annotations,Instances,CrashLoopBackoff
+Kubernetes Cluster setup,pods,containers,labels,annotations,Instances,CrashLoopBackoff,EVN,ConfigMap,Secret,Service,
 ***
 
 **Kubernetes**
@@ -69,6 +69,52 @@ kubectl exec -it <pod_name> -c <container_name> -- bash
 **Labels vs Annotations**
 * Labels are for selecting internal resources
 * annotations are for selecting external resources and can have special characters like :// (links)
+
+**ENV**
+- we can have list of ENV with key and value pairs
+
+**ALIAS**
+'''
+alias ka="kubectl apply -f"
+'''
+
+**REQUESTS vs LIMITS **
+- Request are minimum requirements of memory and CPU,and Limits are maximum requirements of memory and CPU
+
+**CONSUMPTION DETAILS**
+CPU and memory consumption of the pod can be checked as below
+```
+kubectl top pod
+```
+
+## ConfigMap
+- We should no mix code and configuration in same file,lose coupling
+
+## Secrets
+- We should only enter the encoded values in secrets both the key value pai should me encoded
+- We refer secret and configmap as secretRef and configMapRef simultaneously
+
+##SERVICE
+1.Pod to pod communication
+2.Load Balancing
+* We can communicate with other pods with ip,but the ip changes whenever the pod restarts--so service is used(ephermal)
+
+# DELETE ALL PODS
+```
+kubectl delete pods --all -n default
+
+* Create a service ,attach the pods to it using the selector,selector contains labels
+* From another pod hit the service ,using curl <service_name> we can hit the service
+* The service gets called and shows output of the attached pods
+* can run nslookup of service_name in the main pod, which gives the ip of service
+
+## Types of Services:
+1.ClusterIp: default,works internally
+2.NodePort: in spec,we should add type: NodePort,we will get Cluster Ip along with node port
+3.LoadBalancer:Only works with cloud providers,Classic,Application LB(Ingress),Network LB
+-LB is a external service-nodeport--clusterIp--pod
+
+
 
 
 
