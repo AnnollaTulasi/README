@@ -110,9 +110,34 @@ kubectl delete pods --all -n default
 
 ## Types of Services:
 1.ClusterIp: default,works internally
-2.NodePort: in spec,we should add type: NodePort,we will get Cluster Ip along with node port
+2.NodePort: in spec,we should add type: NodePort,we will get Cluster Ip along with node port,the port is opened for all worker nodes
 3.LoadBalancer:Only works with cloud providers,Classic,Application LB(Ingress),Network LB
 -LB is a external service-nodeport--clusterIp--pod
+
+***
+# ReplicaSet
+* If we want to have multiple pods ,if we run the same pod.yaml multiple times we get error due to the pod creation with same name.This issue can be solved with replicasets
+* When we change the version of the image in replicaset ,the replicaset will not reflect with the changes,it only maintainers the desired state (pod count)
+
+# Deployment
+* Rolling update is done with deployments
+* Replicaset is subset of Deployment
+* Pod is the subset of ReplicaSet which means when we create rs ,pod is also created
+* deploymentset > rs >pod
+* The selectors present in pod has to be present in service
+
+# ERRIMGPULL
+* Not able to pull the image
+
+```
+kubectl rollout history deployment<name_of_deployment>
+kubectl rollout history deployment<name_of_deployment> --revision=2
+kubectl rollout undo deployment/<name_of_deployment>  //to rollback to immediate previous version
+kubectl rollout status deployment/<name_of_deployment>
+kubectl logs <name of the pod>
+```
+* targetport cannot be changed,it is the port fixed for each application for nginx it is 80 ,for mysql 3306,but port(service ports) can be changed
+* We are running the front end as the non-root user(ec2-user),so we may not access the system ports 0-1024
 
 
 
