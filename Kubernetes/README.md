@@ -51,7 +51,7 @@ k8s-->image-->pod
 **CRASHLOOPBACKFF**
 * When a image is runned ,if it is not started restarts will happen and even after restart if the container is not up then we get CRASHLOOPBACKOFF error
 
-#The container should run infinite time so that it will not exists and only then the application is available to the outside world
+# The container should run infinite time so that it will not exists and only then the application is available to the outside world
 * For nginx the code to run infinitely is present as the image is already create by different people
 *But for almalinux we should create the cmd to run the conainer infinitely
 
