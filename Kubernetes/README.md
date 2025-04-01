@@ -1,8 +1,7 @@
 # CONCEPTS
 
 Kubernetes Cluster setup,pods,containers,labels,annotations,Instances,CrashLoopBackoff
-
-===
+***
 
 **Kubernetes**
 - When the containers increases it is difficult to manage them,so for orchestration purpose kubernetes came into picture
