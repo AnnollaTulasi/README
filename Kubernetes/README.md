@@ -102,7 +102,7 @@ kubectl top pod
 # DELETE ALL PODS
 ```
 kubectl delete pods --all -n default
-
+```
 * Create a service ,attach the pods to it using the selector,selector contains labels
 * From another pod hit the service ,using curl <service_name> we can hit the service
 * The service gets called and shows output of the attached pods
