@@ -51,7 +51,10 @@ k8s-->image-->pod
 *But for almalinux we should create the cmd to run the conainer infinitely
 
 * If we have 2 containers in the yaml file we can enter different container by the below command
-kubecl exec -it <pod_name> -c <container_name> -- bash
+```
+kubectl exec -it <pod_name> -c <container_name> -- bash
+
+```
 
 * All containers in the pod share the same ip and storage
 * Logs of a pod are available until it is up
