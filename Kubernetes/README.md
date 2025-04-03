@@ -237,3 +237,39 @@ kubectl get sc //cmd to get starage class
 * while creating EFS a volume id is generated that has to be attached in volumeHandle in yaml files
 * volume name and storage class in static volume name exists and in dynamic storageclass exists
 * We should create EFS and access points will be automatically created
+* Access points can be multiple in EFS 
+eg: For one project we have backend,frontend,db etc for each we can create differen access points
+
+# StateFulSet vs Deployment
+* Deployment is for stateless applications-frontend,backend
+* Stateful is for stateful applications like databases,prometheus,grafana
+* If master is down then secondary node will act as master ,all the requests in mean time (when master is down)will be stored in a queue and when secondary is up they will reach that DB master and  the app works 
+* Statefulset will have **headless** service,deployment will not have headless service
+* PV and PVC are mandatory in stateful sets
+* pods will be created in orderly manner in staeteful set where as in deployments all pods will be created at once 
+
+**When we hit nslookup on service in deployments we will get clusterip as output**
+
+# What is headless service?
+when clusterIp is None (no cluster ip) in service ,then it is considered as HeadLess service
+
+- Instead of creating a PVC resource seperately, we can directly provide in volumeClaimTemplate (statefulset) or can create PVC seperately too
+- for every pod their will be unique pv and pvc created
+- in stateless when we do nslookup we get the ips of the pods(all the replicas ips will be shown) where as in deployment only one ip is shown
+
+# Normal service,Headless service,stateful set should present in manifest
+* in serviceName of stateful set we should mention the headless service name
+* env values are overrided during runtime,so we should mention the env values in configmap else we need to rebuild the image
+* backend team will share the links if you add them in nginx.conf for connection we have to rebuild the img and should deployagain,if the nginx.conf is added in cofigmap and as it is file i has to attached as a volume and then if any changes in config we can just pull the code and by delete and applying the manifest it works
+
+# AUTOSCALING
+1.Vertical Scaling--in the existing server we are increasing the cpu,ram sizes
+2.Horizontal Pod scaling(HPA)--no downtime--create another server and add them to LB
+
+# HPA
+* minimum,maximum,on what parameter the scaling has to be done ,and which one has to be scaled
+- metrics server has to be installed ,this will be installed along with eksctl in kube-sytem which will measure the pods resources
+- the resource limits has to be mentioned in pod and in hpa we will mention what has to be autoscaled and min and max details
+
+
+
