@@ -78,7 +78,7 @@ kubectl exec -it <pod_name> -c <container_name> -- bash
 alias ka="kubectl apply -f"
 '''
 
-**REQUESTS vs LIMITS **
+**REQUESTS vs LIMITS**
 - Request are minimum requirements of memory and CPU,and Limits are maximum requirements of memory and CPU
 
 **CONSUMPTION DETAILS**
@@ -139,7 +139,49 @@ kubectl logs <name of the pod>
 * targetport cannot be changed,it is the port fixed for each application for nginx it is 80 ,for mysql 3306,but port(service ports) can be changed
 * We are running the front end as the non-root user(ec2-user),so we may not access the system ports 0-1024
 
+***
+# VOLUMES
+1.**EBS**: Elastic Block Storage(similar to hardisk)
+- EBS should be present in the same availablity zone as server,it is fast(less latency)
+    - OS or DB should be accessed fastly,so EBS is recommended for DB and OS installations
+- Installation of Drivers
+    -EBS is outside of the cluser,EKS has to connect with EBS,so drivers has to be installed
+- EC2 Worker nodes should have permissions to work with EBS Volumes
+2.**EFS**: Elastic File System
+***
+# STATIC AND DYNAMIC PROVISIONING
+**Static**: We have to create the disk manually
+DRIVER INSTALLATION 
+```
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.41"
+```
 
+* EBS are external resources ,if we can treat these voluemes as k8s objects then what ever we do those changes are reflected in EBS also 
+1.**PV**-represents or wrapper of physical volume
+2.**PVC**
+3.**Storage Class**
 
+kid-->mother-->fatner-->wallet
+pod-->pvc-->pv-->volume
 
+**ACCESS MODES**
+* ReadWriteOnce- At a time only one can read and write,EBS can only be connected to one at a time
+* ReadWriteMany - It is for EFS
+
+**LIFECYCLE POLICIES**
+1.Retain-Even when we delete pod,pv,pvc data will be available
+2.Delete- When pod is deleted ,data will be deleted along with disk
+3.Recycle- Data is deleted but disk is available
+
+# PV
+1.In static cretae volume and in PV add the volume_id and the size details
+# PVC
+1.Add the created PV in PVC and keep storageClass as "",in requests you can only have the size less than or equal to the volume created
+**If volume is in 1b and the pod  is scheduled in 1a then pod status will be in pending continuously**
+
+***
+**NODE SELECTOR**
+- nodeselector and volumes will be parallel to containers in manifest
+- nodeselector:
+    topology.kubernetes.io/zone: us-east-1b
 
