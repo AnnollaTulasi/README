@@ -184,4 +184,56 @@ pod-->pvc-->pv-->volume
 - nodeselector and volumes will be parallel to containers in manifest
 - nodeselector:
     topology.kubernetes.io/zone: us-east-1b
+- When we delete pvc and others volume will be released
+- In dynamic we will not create the volumes,auto matically volumes get created
+- Install the driver befor running th epav and pvc and check
+- PV is cluster level ,not based on namespace level
 
+**Static Provisioning Steps**:
+1.Install drivers--command
+```
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.41"
+```
+2.Give permissions to worker nodes  --Security Group--IAM Role--Attach ebs csi permissions
+3.create volume
+4.create the pv,pvc and clain through pod
+5.EC2 and EBS should be in same availability zone
+
+- pod will be created based on the region mentioned in nodeselctor,even th evolume has region bath should be same else the pod will not be created and will get timeout error
+
+# Dynamic Provisioning
+Kid-->Mom-->UPI
+pod-->PVC-->storageclass
+**Storage Class**: this object is responsible for dynamic provisioning,it will create external storage and PV automatically
+
+**Dynamic Provisioning Steps**:
+1.Install drivers
+2.Give permissions to worker nodes
+3.create storage class
+```
+kubectl get sc //cmd to get starage class
+```
+
+- by default the reclaimPolicy is delete so we should explicity define retain
+- we should provide the starage class name in dynamic one and no need of volume name
+
+# EBS vs EFS
+* EBS is fast compared to EFS
+* EBS should be in same AZ where as EFS can be anywhere
+* EBS size is fixed ,where as in EFS size will be auto scaled
+* EFS is based on NFS(n/w file system protocol)
+* EBS and EFS can be useb only when they are mounted to any of the instance
+* EBS can have any file system,but for EFS nfs is already fixed so we should use NFS file system for EFS
+
+**EFS installation Steps**:
+1.Install drivers
+2.Give permissions to worker nodes
+3.Create EFS
+4.open port 2049 on EFS to allow traffic from worker nodes
+5.Create Pv,PVC,pod
+
+* Some access points will be created in our availability zones
+* we select the security group which we got in access points and in security groups we will add (nfs 2049 sg attached to instance)
+* while creating EFS a volume id is generated that has to be attached in volumeHandle in yaml files
+* volume name and storage class in static volume name exists and in dynamic storageclass exists
+* We should create EFS and access points will be automatically created
