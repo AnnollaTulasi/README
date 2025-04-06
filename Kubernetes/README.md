@@ -51,7 +51,7 @@ k8s-->image-->pod
 **CRASHLOOPBACKFF**
 * When a image is runned ,if it is not started restarts will happen and even after restart if the container is not up then we get CRASHLOOPBACKOFF error
 
-# The container should run infinite time so that it will not exists and only then the application is available to the outside world
+# The container should run infinite time so that it will not exit and only then the application is available to the outside world
 * For nginx the code to run infinitely is present as the image is already create by different people
 *But for almalinux we should create the cmd to run the conainer infinitely
 
@@ -271,5 +271,48 @@ when clusterIp is None (no cluster ip) in service ,then it is considered as Head
 - metrics server has to be installed ,this will be installed along with eksctl in kube-sytem which will measure the pods resources
 - the resource limits has to be mentioned in pod and in hpa we will mention what has to be autoscaled and min and max details
 
+***
+# HELM
+* Helm is a package manager to deploy opensource or custom applications into kubernetes
+eg: we have dnf install nginx -y
+- without dnf we have to download the jar/war and then execute some commands to intall nginx,all this can be achieved by single dnf ,similarly helm also overided some parameters and helps us in deploying opensource applications
+* Templatize manifest files
+* Replica can be changed,but HPA will change this
+* In charts.yaml we give details like appversion,chat nemae,version(chart version)
+* in templates we have all the resources and a Values.yaml we will have the dynamic values
+* dependencies means will install that chart first and then the other
 
+```
+helm install <Chart-name> .
+helm upgrade <Chart-name> . //installs for 1st time else will upgrade
+helm history <Chart-name>
+helm rollback <Chart-name> <revision> //revision details can be found from history
+heml status <Chart-name>
+heml upgrade <Chart-name> --description "upgrating the imageVersion to 1.3.14" . // this will be shown in history
+```
+- like dnf ,helm also should be added to the repo
+```
+**Ebs-csi repo installtion**
+helm repo add aws-ebs-sci-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+helm repo update
+helm upgrade --install aws-ebs-csi-driver \
+    --namespace kube-system \
+    aws-ebs-csi-driver/aws-ebs-csi-driver
+**Elastic repo installation**
+helm repo add elastic https://helm.elastic.co
+helm repo update
+helm install es-kb-quickstart elastic/eck-stack -n elastic-stack --create-namespace
 
+helm list //installed repos can be checked
+helm uninstall <name>
+helm repo list
+helm repo remove <name>
+```
+
+**Connection with mysql command**
+```
+mysql -u your_username -p'your_password'
+
+```
+- CRD:Custom Resource Definition-instead of kind:Pod we can create what ever kind we require
+-Prometheus,Grafana we can directly install using helm,instead of writing all the manifest files
