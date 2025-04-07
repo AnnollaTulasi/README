@@ -42,3 +42,19 @@ node is tainted --> pod asks for toleration and nodeSelector --> If tainted have
 
 requiredDuringSchedulingIgnoredDuringExecution --> Schedule the pod and execute --> hard rules, labels must be availalbe while scheduling
 preferredDuringSchedulingIgnoredDuringExecution --> Soft rule --> if labels are not availalbe then consider schedule on the node.
+
+* in nodeselector we can only specify only one key value pair but in node affinity we can have multiple key value pairs
+* wights are present in node affinity and which has less weight is preffered first
+
+**POD AFFINITY**
+* Where ever the pod-1 is created ,there the pod-2 has to be created in this cases podAffinity is used
+* in pod anti-affinity it will not select that paarticular node
+
+# Ingress Controller
+* to expose our application to ouside world we can use nodeport or loadBalancer service but they give classical LB
+* Application load balancer(ALB) is intelligent -->host based routing
+1.setup ingress controller
+2.Use ingress resources -->routing rules
+R53--> ALB-->Listener-->Rule-->Target Group(VM/pods)
+
+* Installation is in k8s-ingress folder and ingress controller is named as AWS Load Balacer Controller
