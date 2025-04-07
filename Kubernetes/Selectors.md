@@ -58,3 +58,30 @@ preferredDuringSchedulingIgnoredDuringExecution --> Soft rule --> if labels are 
 R53--> ALB-->Listener-->Rule-->Target Group(VM/pods)
 
 * Installation is in k8s-ingress folder and ingress controller is named as AWS Load Balacer Controller
+**INGRESS RESOURCE**
+- From LB it reaches Ingress and based on routes it hits different services
+- ALB is a external resource and annotations are used to refer external resource
+- Target group,routing all can be set using the ingress resource
+- here wehave to mention which one has to be to used http or https
+- As we are using https for outside world should attach cerificate
+- In R53 the domain details(main atleast without records) should present
+- AWS Certificate manager (ACM)-->create certificate for your domain *.tulasi.site-->validation and then attach the arn of the certificate in your manifest
+- group has to be added in ingress resource
+- **in ingress resource we have path based rules as well as host based rules,we should select according to our requirement**
+- **Through ingress contoller applications running in kubernetes will have external access**
+- **Using Ingress Resource we can create ALB,Listener,Rule,TargeGroup**
+- **Ingress is attached to service,so it fetches the pods and adds them to target group**
+- For LB we get one DNs but when we hit that we cannot acces the application as we set the rule that we should hit app1
+- so need to paste the DNS in R53
+- group is added in ingress resource ,so that only rules will be added to it further instead of creating new lb again and again
+
+***
+# Role based Access Control
+- Authentication and Authorization purpose
+- User,Role,Role binding
+- role should be bounded to user through role binding
+- eks is one platform and aws is another platform we will not create different users for each platform instead we try to use IAM service
+- IAM >Polity>create policy for describing cluster,and then create user and attach the policy created
+- We have created role and binded it to user but eks doesn't know what users are present in IAM users ,the authentication b/w eks and IAM can be done from aws-auth
+
+
