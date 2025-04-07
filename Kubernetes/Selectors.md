@@ -83,5 +83,10 @@ R53--> ALB-->Listener-->Rule-->Target Group(VM/pods)
 - eks is one platform and aws is another platform we will not create different users for each platform instead we try to use IAM service
 - IAM >Polity>create policy for describing cluster,and then create user and attach the policy created
 - We have created role and binded it to user but eks doesn't know what users are present in IAM users ,the authentication b/w eks and IAM can be done from aws-auth
+- In aws-auth we have to add user and group so that the authentication will be established
+```
+aws configure --profile <user> //to add the credentilas of that particular user
+aws sts get-caller-identity
+```
 
 
