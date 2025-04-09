@@ -88,5 +88,31 @@ R53--> ALB-->Listener-->Rule-->Target Group(VM/pods)
 aws configure --profile <user> //to add the credentilas of that particular user
 aws sts get-caller-identity
 ```
+- Role contains the details of what resources can be accessed
+- Namespace level access can be given by role and role binding
+- Cluster level access can be given by cluster role and cluster role binding
+- nodes,pv are cluster level
 
+# Service Account
+* it is pod identity with which it can connect with api server and get access to exteral services
+* if thw pod wants to get secrets from aws secrett manager  their should be connection b/w eks cluster and aws secret manager
+* Service Account is a non-human account 
+* for sa(Service account) if it is with in cluster then role and  rolebinding has to be done
 
+1.OIDC
+2.Created policy
+3.Attach service Account to pod
+
+***
+**INIT CONTAINERS**
+- they are used to setup the requirement for pod,eb:backed pod can check whether their are proper connections to databease
+- they can fetch secrets for pod
+- init container runs before the main container runs and can have mutiple init containers,init containers run before to make sure dependent services run fine before our main application
+- main container size will be small as init will take up some of the tasks
+- we cannot access init containers once after its execution is completed
+```
+watch kubectl get pods
+```
+- EFS and EBS are external volumes
+- emptyDir(pods temp storage) and hostPath are internal volumes
+- all containers inside pod can access emptyDir
