@@ -116,3 +116,13 @@ watch kubectl get pods
 - EFS and EBS are external volumes
 - emptyDir(pods temp storage) and hostPath are internal volumes
 - all containers inside pod can access emptyDir
+
+# Daemon Set
+* Makes sure pod replica runs on every node
+* Due to HPA we may get new nodes ,at that time Daemon set makes sure to create the pods in the newly created nodes
+* Logs collection,monitority,extra disk adding can be done using Daemon set
+* emptyDir - temp storage for pod
+* hostPath - filesystem path in the underlying worker node,it is not secure
+* pods should not access the hostsfile system directly
+* only through daemon set the hostpath should be accessed and that to in readOnly mode so that the files cannot be created ,updated or deleted
+* daemon set is the only exception for admins to collect logs using hostPath
