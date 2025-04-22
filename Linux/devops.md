@@ -17,3 +17,16 @@ It is a process of building ,testing and releasing the code on the sameday.Throu
 4.Costly
 5.Not Opensource
 6.Power comsumption is more in windows as we have graphics
+
+RAM,Storage,OS,Processor and has IP address are said as Computers
+Mobile is for calling
+Computer is for working and browsing internet
+Server is for hosting applications
+
+**Port Forwarding**- We can deploy application in our system and then open it in internet
+
+**Client Server Architecture**
+Through client user can access the things which are deployed in servers
+
+* Firewall or Security Group (for entry)
+* Inbound and outbound rules should be added in SG
