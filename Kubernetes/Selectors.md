@@ -126,3 +126,9 @@ watch kubectl get pods
 * pods should not access the hostsfile system directly
 * only through daemon set the hostpath should be accessed and that to in readOnly mode so that the files cannot be created ,updated or deleted
 * daemon set is the only exception for admins to collect logs using hostPath
+
+# Setting default namespace cmd
+```
+kubectl config set-context --current --namespace <nampespace>
+```
+
