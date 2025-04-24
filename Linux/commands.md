@@ -37,7 +37,33 @@ wget <url> //downloads the file
 curl <url> //shows on the screen but will not be downloaded
 curl <url> -o <path of file oe fname> //will be downloaded to entered filename
 ```
-**Piping**
+**Piping** -out put of one commands goes as input to other
+```
+grep <word-to-search> <file>
+cat file | grep word
+echo url | cut -d "/" -f3
+cut -d "" -f1 //cut command passically custs based on delimiter and f1 f2 are parts after cutting
 ```
 
+**AWK command**
+```
+echo url | awk -F "/" '{print $NF}'
+awk -F ":" '{print $3F}' <filename>
+```
+
+**Head,Tail**
+```
+head -n 3 <filename>
+tail -n 5 <filename>
+
+#If you want 4 to 10 lines in the file
+head -n 10 <filename> | tail -n 7 
+```
+
+**Find**
+```
+find <which-location> -name "<file-name>"
+find / -name "passwd" //searches in all folders as we gave root ,should have root access to execute this
+find / -type d -name "ec2-user"  //searches for folder
+find / -type f -name "filename" //searches for file
 ```
