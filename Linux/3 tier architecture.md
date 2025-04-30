@@ -20,3 +20,20 @@ Makefile --> C
 cd /etc/systemd/system //services has to be created in this 
 systemctl daemon-reload //after creating service should reload the services
 ```
+
+**PROXY**-on behalf off
+**Forward Proxy**
+Server is not aware that client is using the VPN,but client is aware of using VPN   
+eg:VPN - to restrict the traffic and monitor VPN is used,ananymous client,Geo Location hiding
+**Reverse Proxy**
+Server is aware of the proxy,client is not aware
+- backend applications are behind reverse proxy servers for security queing
+- cache
+
+```
+/etc/nginx //nginx home directory
+/usr/share/nginx/html //html directory
+/etc/nginx/nginx.conf //nginx configuration
+```
+**How do we change the default port in nginx?**
+- We can change it in nginx.conf and restart the service to change the port
