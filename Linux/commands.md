@@ -70,6 +70,7 @@ find / -type f -name "filename" //searches for file
 
 **Debugging**
 - DB is running properly but if you are not able to connect to backend then you should check security groups
+- sometimes ping is disabled in servers,can checck for telnet
 ```
 ping ip //whether it is connecting to ip or not
 telnet ip port 
