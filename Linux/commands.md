@@ -67,3 +67,13 @@ find / -name "passwd" //searches in all folders as we gave root ,should have roo
 find / -type d -name "ec2-user"  //searches for folder
 find / -type f -name "filename" //searches for file
 ```
+
+**Debugging**
+- DB is running properly but if you are not able to connect to backend then you should check security groups
+```
+ping ip //whether it is connecting to ip or not
+telnet ip port 
+curl http://localhost/health //here local host is current server
+netstat -lntp
+ps -ef | grep <name>
+```
