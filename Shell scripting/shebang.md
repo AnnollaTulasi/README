@@ -41,5 +41,22 @@ $USER //which user is running the script
 $$  //processid of the current script
 $! process id of last command in background
 sleep 60 & // to run the command in background
+$? //to check the exit status
+```
 
+**CONDITIONS**
+if [ expression ]
+then 
+    statements
+else 
+    statements
+fi
+* -gt,-lt,-eq,-ge,-le //greater than,lessthan,equal,greaterthanequal to,lessthan equal to
+
+**SHELLSCRIPTING**
+* Shell will not exit if we have errors,it will proceed to execute,it is our duty to stop it when error occurs
+* exit 1,we can put any value other than zero
+* for every cmd we should check the exit status
+```
+id -u //if it returns 0 then it is root user
 ```
