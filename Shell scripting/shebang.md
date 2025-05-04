@@ -16,3 +16,30 @@
 read = will wait and takes input
 read -s = the entered value is not available
 ```
+
+**How do we run a command inside shell script**
+datevar=$(date)
+- the date cmd will run and the value is stored in datevar
+- if we give string and add then it will consider strings as 0 ,will not concatinate as different programming languages 
+- addition of 50+50=100 ,**devops+prac=0 not devopsprac**
+
+**List**
+```
+MOVIES=("movie1" "movie2" "movie3")
+MOVIES[0]
+MOVIES[@] //to get all the list
+```
+
+**Special Variables**
+```
+$@ //all
+$# // number of variables
+$0 //scriptname
+$PWD // current dir
+$HOME //home dir of current user
+$USER //which user is running the script
+$$  //processid of the current script
+$! process id of last command in background
+sleep 60 & // to run the command in background
+
+```
