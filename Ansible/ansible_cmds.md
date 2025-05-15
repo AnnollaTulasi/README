@@ -56,3 +56,131 @@ COURSE="Devops"
 5.play level (global)
 6.inventory
 7.Roles
+
+* Ansible will connect to nodes,will fetch all the details of the node and then based on their detail like (ubuntu/RHEL),it will execute the appropriate cmds,dnf or aptget
+```
+{{ ansible_facts }} //all facts can be gathered from this
+```
+* We can access the variables displayed in ansible_facts by ansible_{var_name}
+
+**CONDITION**
+- when keyword is used
+```
+ansible.builtin.debug:
+  msg: "the number {{my_num}} is greater than 10"
+when: my_num > 10
+```
+
+**LOOPS**
+-loop,item keywords are used
+```
+ansible.builtin.debug:
+  msg: "Hi {{ item }}"
+loop:
+- Tulasi
+- Sumathi
+- Laxmi
+- Dharma
+```
+
+* you can install packages with sudo access only
+```
+ansible.builtin.package:
+  name: "{{item.name}}"
+  state: "{{item.state}}"
+loop:
+- {name: 'mysql' ,state:'present'}
+- {name: 'git' ,state:'absent'}
+```
+
+**FUNCTIONS/FILTERS**
+* In ansible we cannot create functions ,but can ues the existing filters
+* If you want to create new modules ,then using python programming those has to be developed
+
+**DEFAULT**
+```
+ansible.builtin.debug:
+  msg: "Hi {{ person | default('Tulasi')}}" //person is not defined ,icks the default value
+```
+
+**SPLIT**
+```
+- name: covert string to list
+  vars:
+    fruit_names: "mango,apple,grapes"
+  ansible.builtin.debug:
+    msg: "fruits are: {{ fruit_names | split(',') }}" //split will convert the string to list
+```
+
+**DICT2ITEM**
+
+```
+- name: convert map to list
+  vars: 
+    course: 
+      name: ansible
+      duration: 10hrs
+  ansible.builtin.debug:
+    msg: "Course info {{ course | dict2items }}
+```
+
+**IEMS2DICT**
+
+```
+- name: convert map to list
+  vars: 
+    course: 
+    - {'key':'name','value':'ansible'}
+    - {'key':'duration','value':'10hrs'}
+  ansible.builtin.debug:
+    msg: "Course info {{ course | items2dict }}"
+```
+
+**LOWER**
+```
+msg: "Hello {{ name| lower}}
+```
+
+**UPPER**
+```
+msg: "Hello {{ name| upper}}
+```
+**MIN and MAX**
+```
+- name: print min and max
+  vars:
+    numbers: [1,3,20,45]
+  ansible.builtin.debug:
+    msg: "max nubers is {{numbers | max }},min number is {{numbers| min }}"
+```
+* pip install netaddr
+* ansible.utils.ipaddr - to check whether the ip is valid or not
+```
+- name: check ipaddress is valid or not
+  vars:
+    ip: "198.168.1.1."
+  ansible.builtin.debug:
+    msg: "{{ ip |ansible.utils.ipaddr }}"
+```
+
+**What if module is not available?**
+- shell or command modules are available
+- ansible.builtin.shell and ansible.builtin.command
+
+**Diff b/w shell and command module**
+shell-->it is like logging inside the server and executing the command,we can access variables,redirections(>,<,>>),and pipe
+command--> this is like running the cmds from outside,you will not get access to variables,redirections and pipes and all
+- we run simple and basic commands in command module and it is more secure as we aare not giving access to everything
+- for complex commands we use shell module
+
+**in shell we used to run $(linux_cmd) and stored the output in a variable,this can be acheived in ansible via register**
+```
+- name: execute command
+  ansible.builtin.command: ls -lrt
+  register: command_result
+- name: access the register
+  ansible.builtin.debug:
+    msg: "{{ command_result }}"
+```
+* in this stdout is o/p,rc is return code,stderr is error
+* In shell we have to check whether the package is installed r not but in ansible it will install if it is not present(IDEMPOTENT nature for ansible)
