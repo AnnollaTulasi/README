@@ -21,6 +21,38 @@ ansible.builtin.package:
 hosts: local
 connection: local
 ```
+5.to start a service
+```
+ansible.builtin.service:
+  name: mysqld
+  state: started
+  enabled: yes
+```
+6.mysql module
+```
+- name: connect to mysql server
+  community.mysql.mysql_info:
+    login_user: root
+    login_password: ExpenseApp@1
+    login_host: ip/route 53 record
+  register: mysql_info
+
+- name: printing the mysql info
+  ansible.builtin.debug:
+    msg: "mysql info is {{ mysql_info }}"
+```
+
+7. installing using pip
+```
+ansible.builtin.pip:
+  name: PyMySQL
+  excutable: pip3.9
+```
+8. if you want to proceed without exiting even after getting errors
+```
+ignore_errors: true
+```
+
 
 **VARIABLES**
 * they shouls be defined under vars tab and can be used as "{{varname}}"
