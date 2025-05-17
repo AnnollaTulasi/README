@@ -40,6 +40,10 @@ ansible.builtin.service:
 - name: printing the mysql info
   ansible.builtin.debug:
     msg: "mysql info is {{ mysql_info }}"
+
+- name: setup password
+  ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_password }}
+  when: mysql_info.failed is true
 ```
 
 7. installing using pip
@@ -52,8 +56,39 @@ ansible.builtin.pip:
 ```
 ignore_errors: true
 ```
+9. to create users
+```
+ansible.builtin.user:
+  name: expense
+```
+10. to create file,folder,links
+```
+ansible.builtin.file:
+  path: /app //where the folder has to be created
+  state: directory  //it can be file or link ans well and file is default value
+```
 
+11. to download files form url (curl)
+```
+ansible.builtin.get_url:
+  url:
+  destination: //where it has to be downloaded
+  mode: //optional
+```
+12. zip is archieve and unzip is unarchieve
+```
+ansible.builtin.unarchieve:
+  source:
+  destination:
+  remote_src: yes //file is not in ansible controller it is in ansible remote machine(nodes)
+```
 
+13. to copy:
+```
+ansible.builtin.copy:
+  source:
+  destination:
+```
 **VARIABLES**
 * they shouls be defined under vars tab and can be used as "{{varname}}"
 * If we mention vars in tasks they are applicable only to that task //task level variables
@@ -216,3 +251,14 @@ command--> this is like running the cmds from outside,you will not get access to
 ```
 * in this stdout is o/p,rc is return code,stderr is error
 * In shell we have to check whether the package is installed r not but in ansible it will install if it is not present(IDEMPOTENT nature for ansible)
+* instead of keeping the ip address we can even keep the route 53 records in inventory file
+** if we create variables beside ip then they are host variables,if we create seperately then they are group variables**
+
+```
+nslookup mysql.tulasi.site //ip mapped will be displayed
+```
+```
+[all:vars]
+ansible_user="ec2_user"
+ansible_password="DevOps321"
+```
