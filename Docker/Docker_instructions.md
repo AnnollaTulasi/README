@@ -13,7 +13,9 @@
 - EXPOSE - gives port informations//metadata related only
 - in docker inspect we can check the labels added and port exposed details
 - ENV are environment variables and can access inside containers
-- after entering the container by exec command if we check for env these variables will be available
+- after entering the container by exec command if we check for env these variables will be available and these can be useed inside code
+- ENTRYPOINT
+
 ```
 FROM <base_os>:<version>
 RUN dnf install nginx -y //to install any thing on top on base os
@@ -48,3 +50,20 @@ docker images -f "LABEL=<Key=value>"
 - Add has 2 more fuctionalities
 1. copying from internet to image
 2. extracts tar file into image - it will untar and will store in container
+
+**CMD vs ENTRYPOINT**
+- we can override the command givven in CMD
+- We cannot override from ENTRYPOINT
+- command is appended in ENTRYPOINT
+- docker run cmd:1.0.0 ping facebook.com //way to override
+- In ENTRYPOINT cmd is defined and in CMD inputs are given for better usage of both cmds
+- Only one CMD and ENTRYPOINT should be used is dockerfile
+```
+CMD ["ping", "google.com"]
+ENTRYPOINT ["ping", "google.com"]
+```
+- docker run cmd:1.0.0 facebook.com
+```
+CMD ["google.com"]
+ENTRYPOINT ["ping"]
+```
