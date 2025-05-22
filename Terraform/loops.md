@@ -43,3 +43,5 @@ locals{
 
 }
 ```
+**State Management**
+- Terraform has one state file ,in that all the changes which we do from code are noted and it compares to actula infro in provider,if any one changes from provider side it will pick again from statefile and modify the changes
