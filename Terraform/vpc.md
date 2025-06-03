@@ -21,3 +21,7 @@
 - elastic or static ip and it has some cost as we are requesting for some static ip
 - for nat gateway elastic ip is mandatory
 - by default public ip is set as false we should add that option for public subnets in vpc(map_public_ip_on_launch)
+- slice is the method which takes the continous output at mentioned indices
+- we get output when we apply and when the resources are created
+- internet gatewayy is responsible for internet in public subnet
+- for natgateway elastic ip is mandatory aswell it should have internetgateway only then public subnet gets internet connection
