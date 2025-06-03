@@ -20,4 +20,4 @@
 -  if you want to egress internet to the servers in private subnet,nat gateway should be created in public subnets and provide routes to private subnets
 - elastic or static ip and it has some cost as we are requesting for some static ip
 - for nat gateway elastic ip is mandatory
-
+- by default public ip is set as false we should add that option for public subnets in vpc(map_public_ip_on_launch)
