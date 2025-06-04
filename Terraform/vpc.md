@@ -25,3 +25,9 @@
 - we get output when we apply and when the resources are created
 - internet gatewayy is responsible for internet in public subnet
 - for natgateway elastic ip is mandatory aswell it should have internetgateway only then public subnet gets internet connection
+**Asociations**
+- route tables has to be associated with subnets
+**VPC Peering**
+- Generally VPCs will not communicate with each other,inorder to make them communicate the VPC should be attached via peering
+1. VPC 1 cidr should be different ffrom VPC 2 cidr
+2. routes should be present between VPCs route tables
