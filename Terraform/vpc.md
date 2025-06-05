@@ -31,3 +31,5 @@
 - Generally VPCs will not communicate with each other,inorder to make them communicate the VPC should be attached via peering
 1. VPC 1 cidr should be different ffrom VPC 2 cidr
 2. routes should be present between VPCs route tables
+- in security module ,if ingress is created while module development,user when using the module cannot add new ingresses,so we removed the ingresses so that they can create their ingress
+- Actually in realtime the VPC modules and SG modules are developed by different teams,but SG depends on VPC so all the values are stored in SSM parameter
