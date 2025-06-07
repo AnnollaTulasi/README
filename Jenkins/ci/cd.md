@@ -19,3 +19,24 @@
 - cannot restore if something is missed,cannot version control
 - pipeline is code,can do version controlso rrestore can be done
 
+**Master /Node or agent architecture**
+- all the jobs are delegated to agents by master
+- jenkins agent is anoter server
+- even in agent java has to be installed
+- remoting jar is responsible for connection b/w master and agent
+- all different projects cannot be handled by master,so they are delegated to agents
+
+**Declarative vs Scripted**
+- Declarative : compilation of pipeline happens at first and then runs
+```
+pipeline{
+
+}
+```
+- Scripted: runs one stage after the other and fails
+```
+node{
+
+}
+```
+script block is in scripted we involve that in declarative ,so our pipelines are hybrid
