@@ -40,3 +40,8 @@ node{
 }
 ```
 script block is in scripted we involve that in declarative ,so our pipelines are hybrid
+- env is global variable and can be used in all stages
+========================================
+**Webhook**
+- whenever code is pushed to git automatically the CI will be triggered,shiftleft process is applied here
+- we pushed to git(event),git is responsible to update to jenkins(eventdriven)
